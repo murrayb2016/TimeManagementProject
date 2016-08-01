@@ -1,13 +1,14 @@
 ﻿<!--ToDoList editing today 07/07/2016-->
 
-<div class="container-fluid">
+<div class="container-fluid" print-remove>
     <div class="row">
-        <div class="col-xs-12"><label id="search">Search Task: <input type="text" ng-model="searchTask" ng-model-options="{debounce:200}" /></label></div>   <!--Search task-->
+        <div class="col-xs-6"><label id="search">Search Task: <input type="text" ng-model="searchTask" ng-model-options="{debounce:200}" /></label></div>   <!--Search task-->
+        <div class="col-xs-6 hidden-xs"><button id="print" class="btn btn-default" print-btn><i class="glyphicon glyphicon-print"></i> Print Data</button></div>
     </div>
 </div>
 
 
-<div class="container-fluid">
+<div class="container-fluid" print-remove>
     <div class="row">
         <div class="col-xs-12"><h1>To-Do-List</h1></div>
     </div>
@@ -18,230 +19,232 @@
 <br /><br />
 
 
-    <div class="container-fluid">
-        <!--text-center in col div is how you center over one row-->
-        <div class="row">
-            <div class="col-xs-12 text-center hidden-xs ">
-                <button class="ButtonForm " id="buttonForm" ng-click="controller.hideEditButton()">EDIT</button> <!--Edit button to edit form/task-->
-                <button class="ButtonForm " id="buttonForm1" ng-click="controller.toggle()">ADD</button>  <!--Add button to show form-->
-                <button class="ButtonForm " ng-click="controller.hide()">HIDE</button>
-                <button class="ButtonForm " id="buttonForm2" ng-click="controller.hideCompleteButton()">COMPLETE</button> <!--Complete button to complete a task-->
-                <button class="ButtonForm " id="buttonForm3" ng-click="controller.hideDeleteButton()">DELETE</button>
-            </div> <!--Delete button to delete a task-->
-        </div>
-        <div class="row">
-            <div class="btn-group-vertical visible-xs ">
-                <button type="button" class="btn btn-primary" ng-click="controller.hideEditButton()">EDIT</button> <!--Edit button to edit form/task-->
-                <button type="button" class="btn btn-primary" ng-click="controller.toggle()">ADD</button>  <!--Add button to show form-->
-                <button type="button" class="btn btn-primary" ng-click="controller.hide()">HIDE</button>
-                <button type="button" class="btn btn-primary" ng-click="controller.hideCompleteButton()">COMPLETE</button> <!--Complete button to complete a task-->
-                <button type="button" class="btn btn-primary" ng-click="controller.hideDeleteButton()">DELETE</button>
-            </div> <!--Delete button to delete a task-->
-        </div>
+<div class="container-fluid" print-remove>
+    <!--text-center in col div is how you center over one row-->
+    <div class="row">
+        <div class="col-xs-12 text-center hidden-xs ">
+            <button class="ButtonForm " id="buttonForm" ng-click="controller.hideEditButton()">EDIT</button> <!--Edit button to edit form/task-->
+            <button class="ButtonForm " id="buttonForm1" ng-click="controller.toggle()">ADD</button>  <!--Add button to show form-->
+            <button class="ButtonForm " ng-click="controller.hide()">HIDE</button>
+            <button class="ButtonForm " id="buttonForm2" ng-click="controller.hideCompleteButton()">COMPLETE</button> <!--Complete button to complete a task-->
+            <button class="ButtonForm " id="buttonForm3" ng-click="controller.hideDeleteButton()">DELETE</button>
+        </div> <!--Delete button to delete a task-->
     </div>
-   
-
-    <div class="container center" ng-hide="controller.hidden">
-
-        <div class="container-fluid" ng-hide="controller.hideEditInfo">
-            <div class="EditFields hidden-xs">
-
-                <h3>Edit</h3> <br />
-                <p>Category: {{controller.categoryName}}</p>
-                <p>Task: {{controller.description}}</p>
-                <p>Start Date: {{controller.startDate | date}}</p>
-                <p>End Date: {{controller.dueDate | date}}</p>
-                <p>Time Estimate: {{controller.timeEstimate}}</p>
-                <p>Priority Level: {{controller.priorityLevel}}</p>
-            </div>
-        </div>
-
-        <h2>Task Form</h2>  <!--Add form-->
-
-        <form role="form" ng-hide="controller.hideFormEdit" ng-submit="controller.addForm(form)">
-            <div class="form-group">
-                <label for="category">Category:</label>
-                <input pattern="[A-Z][A-Za-z' '0-9]*" title="First Letter in the category must be capitalized" type="text" ng-model="form.categoryName" class="form-control" id="category" placeholder="Enter Category" required>
-            </div>
-
-            <div class="form-group">
-                <label for="task">Task:</label>
-                <input  pattern="[A-Z][A-Za-z' '0-9]*" title="First Letter in the Task must be capitalized" type="text" ng-model="form.description" class="form-control" id="task" placeholder="Enter Task" required>
-            </div>
-
-            <div class="form-group">
-                <label for="startDate">Start Date:</label>
-                <input type="date" ng-model="form.startDate" class="form-control" id="startDate" placeholder="Enter Start Date" required>
-            </div>
-
-            <div class="form-group">
-                <label for="endDate">End Date:</label>
-                <input type="date" ng-model="form.dueDate" class="form-control" id="endDate" placeholder="Enter End Date" required>
-            </div>
-
-            <div class="form-group">
-                <label for="timeEstimate">Time Estimate:</label>
-                <input type="number" ng-model="form.timeEstimate" min="0" max="448" class="form-control" id="timeEstimate" placeholder="Enter Time Estimate" required>
-            </div>
-
-            <div class="form-group">
-                <label for="priority">Priority:</label>
-                <input type="number" ng-model="form.priorityLevel" class="form-control" id="priority" min="1" max="5" placeholder="Enter Priority" required>
-            </div>
-
-            <input type="submit" value="Submit" class="btn btn-default" />
-            <input type="button" value="Cancel" ng-hide="controller.hideFormCancel"  class="btn btn-default" ng-click="controller.toggle()">   <!--Later going to want this to clear the fields-->
-
-
-        </form>
-
-
-        <form role="form" ng-show="controller.hideFormEdit" ng-submit="controller.Edit(form)">
-            <div class="form-group">
-                <label for="category">Category:</label>
-                <input pattern="[A-Z][A-Za-z' '0-9]*" title="First Letter in the category must be capitalized" type="text" ng-model="form.categoryName" class="form-control" id="category" placeholder="Enter Category" required>
-            </div>
-
-            <div class="form-group">
-                <label for="task">Task:</label>
-                <input pattern="[A-Z][A-Za-z' '0-9]*" title="First Letter in the Task must be capitalized" type="text" ng-model="form.description" class="form-control" id="task" placeholder="Enter Task" required>
-            </div>
-
-            <div class="form-group">
-                <label for="startDate">Start Date:</label>
-                <input type="date" ng-model="form.startDate" class="form-control" id="startDate" placeholder="Enter Start Date" required>
-            </div>
-
-            <div class="form-group">
-                <label for="endDate">End Date:</label>
-                <input type="date" ng-model="form.dueDate" class="form-control" id="endDate" placeholder="Enter End Date" required>
-            </div>
-
-            <div class="form-group">
-                <label for="timeEstimate">Time Estimate:</label>
-                <input type="number" ng-model="form.timeEstimate" min="0" max="448" class="form-control" id="timeEstimate" placeholder="Enter Time Estimate" required>
-            </div>
-
-            <div class="form-group">
-                <label for="priority">Priority:</label>
-                <input type="number" ng-model="form.priorityLevel" class="form-control" id="priority" min="1" max="5" placeholder="Enter Priority" required>
-            </div>
-
-            <input type="submit" value="Submit" class="btn btn-default" />
-            <input type="button" value="Cancel" ng-hide="controller.hideFormCancel" class="btn btn-default" ng-click="controller.toggle()">   <!--Later going to want this to clear the fields-->
-
-
-        </form>
-
+    <div class="row">
+        <div class="btn-group-vertical visible-xs ">
+            <button type="button" class="btn btn-primary" ng-click="controller.hideEditButton()">EDIT</button> <!--Edit button to edit form/task-->
+            <button type="button" class="btn btn-primary" ng-click="controller.toggle()">ADD</button>  <!--Add button to show form-->
+            <button type="button" class="btn btn-primary" ng-click="controller.hide()">HIDE</button>
+            <button type="button" class="btn btn-primary" ng-click="controller.hideCompleteButton()">COMPLETE</button> <!--Complete button to complete a task-->
+            <button type="button" class="btn btn-primary" ng-click="controller.hideDeleteButton()">DELETE</button>
+        </div> <!--Delete button to delete a task-->
     </div>
+</div>
 
-  
 
+<div class="container center" ng-hide="controller.hidden" print-remove>
 
-    <br /><br />
+    <div class="container-fluid" ng-hide="controller.hideEditInfo">
+        <div class="EditFields hidden-xs">
 
-    <div class="container">
-        <div class="table-responsive">
-            <!--Table input from form-->
-            <table class="table table-bordered">
-                <tr class="myForm">
-                    <th class="sortingHeader" id="sortingHeader" ng-click="type = 'categoryName'">Category</th>
-                    <th class="sortingHeader" id="sortingHeader" ng-click="type = 'description'">Task Name</th>
-                    <th class="sortingHeader" id="sortingHeader" ng-click="type = 'startDate'">Start Date</th>
-                    <th class="sortingHeader" id="sortingHeader" ng-click="type = 'dueDate'">End Date</th>
-                    <th class="sortingHeader" id="sortingHeader" ng-click="type = 'timeEstimate'">Time Estimate</th>
-                    <th class="sortingHeader" id="sortingHeader" ng-click="type = 'priorityLevel'">Priority Level</th>
-                </tr>
-                <tr class="myForm" ng-repeat="data in controller.form|orderBy:type|filter:{description:searchTask}">
-                    <!--repeat for each object of type myList-->
-                    <td class="formTable" id="formTable">{{data.categoryName}}</td>         <!--Category-->
-                    <td class="formTable" id="formTable">{{data.description}}</td>         <!--Task Name-->
-                    <td class="formTable" id="formTable">{{data.startDate |date}}</td>         <!--Start Date-->
-                    <td class="formTable" id="formTable">{{data.dueDate | date}}</td>         <!--End Date-->
-                    <td class="formTable" id="formTable">{{data.timeEstimate}}</td>         <!--Time Estimate-->
-                    <td class="formTable" id="formTable">{{data.priorityLevel}}</td>         <!--Priority Level-->
-                    <td ng-hide="controller.hideCheck"><input name="indexing" type="radio" value="$index"  ng-click="controller.checked($index)" /></td>                           <!--Checkbock for the edit,delete, and completed-->
-                </tr>
-            </table>
+            <h3>Edit</h3> <br />
+            <p>Category: {{controller.categoryName}}</p>
+            <p>Task: {{controller.description}}</p>
+            <p>Start Date: {{controller.startDate | date}}</p>
+            <p>End Date: {{controller.dueDate | date}}</p>
+            <p>Time Estimate: {{controller.timeEstimate}}</p>
+            <p>Priority Level: {{controller.priorityLevel}}</p>
         </div>
     </div>
 
+    <h2>Task Form</h2>  <!--Add form-->
+
+    <form role="form" ng-hide="controller.hideFormEdit" ng-submit="controller.addForm(form)">
+        <div class="form-group">
+            <label for="category">Category:</label>
+            <input pattern="[A-Z][A-Za-z' '0-9]*" title="First Letter in the category must be capitalized" type="text" ng-model="form.categoryName" class="form-control" id="category" placeholder="Enter Category" required>
+        </div>
+
+        <div class="form-group">
+            <label for="task">Task:</label>
+            <input pattern="[A-Z][A-Za-z' '0-9]*" title="First Letter in the Task must be capitalized" type="text" ng-model="form.description" class="form-control" id="task" placeholder="Enter Task" required>
+        </div>
+
+        <div class="form-group">
+            <label for="startDate">Start Date:</label>
+            <input type="date" ng-model="form.startDate" class="form-control" id="startDate" placeholder="Enter Start Date" required>
+        </div>
+
+        <div class="form-group">
+            <label for="endDate">End Date:</label>
+            <input type="date" ng-model="form.dueDate" class="form-control" id="endDate" placeholder="Enter End Date" required>
+        </div>
+
+        <div class="form-group">
+            <label for="timeEstimate">Time Estimate:</label>
+            <input type="number" ng-model="form.timeEstimate" min="0" max="448" class="form-control" id="timeEstimate" placeholder="Enter Time Estimate" required>
+        </div>
+
+        <div class="form-group">
+            <label for="priority">Priority:</label>
+            <input type="number" ng-model="form.priorityLevel" class="form-control" id="priority" min="1" max="5" placeholder="Enter Priority" required>
+        </div>
+
+        <input type="submit" value="Submit" class="btn btn-default" />
+        <input type="button" value="Cancel" ng-hide="controller.hideFormCancel" class="btn btn-default" ng-click="controller.toggle()">   <!--Later going to want this to clear the fields-->
 
 
-    <div class="container-fluid">
-        <!--text-center in col div is how you center over one row-->
-        <div class="row">
-            <div class="col-xs-12 text-center hidden-xs ">
-                <input type="button" value="Confirm Delete" ng-hide="controller.hideDelete" ng-click="controller.Delete()" class="btn btn-default" />
-                <input type="button" value="Confirm Complete" ng-hide="controller.hideComplete" ng-click="controller.Complete()" class="btn btn-default" />
-                <input type="button" value="Confirm Edit" ng-hide="controller.hideEdit" ng-click="controller.Edit()" class="btn btn-default" />
-                <input type="button" value="Cancel" ng-hide="controller.hideCancel" ng-click="controller.Cancel()" class="btn btn-default" />
-            </div> <!--Delete button to delete a task-->
+    </form>
+
+
+    <form role="form" ng-show="controller.hideFormEdit" ng-submit="controller.Edit(form)">
+        <div class="form-group">
+            <label for="category">Category:</label>
+            <input pattern="[A-Z][A-Za-z' '0-9]*" title="First Letter in the category must be capitalized" type="text" ng-model="form.categoryName" class="form-control" id="category" placeholder="Enter Category" required>
         </div>
-        <div class="row">
-            <div class="btn-group-vertical visible-xs ">
-                <input type="button" value="Confirm Delete" ng-hide="controller.hideDelete" ng-click="controller.Delete()" class="btn btn-default" />
-                <input type="button" value="Confirm Complete" ng-hide="controller.hideComplete" ng-click="controller.Complete()" class="btn btn-default" />
-                <input type="button" value="Confirm Edit" ng-hide="controller.hideEdit" ng-click="controller.Edit()" class="btn btn-default" />
-                <input type="button" value="Cancel" ng-hide="controller.hideCancel" ng-click="controller.Cancel()" class="btn btn-default" />
-            </div> <!--Delete button to delete a task-->
+
+        <div class="form-group">
+            <label for="task">Task:</label>
+            <input pattern="[A-Z][A-Za-z' '0-9]*" title="First Letter in the Task must be capitalized" type="text" ng-model="form.description" class="form-control" id="task" placeholder="Enter Task" required>
         </div>
+
+        <div class="form-group">
+            <label for="startDate">Start Date:</label>
+            <input type="date" ng-model="form.startDate" class="form-control" id="startDate" placeholder="Enter Start Date" required>
+        </div>
+
+        <div class="form-group">
+            <label for="endDate">End Date:</label>
+            <input type="date" ng-model="form.dueDate" class="form-control" id="endDate" placeholder="Enter End Date" required>
+        </div>
+
+        <div class="form-group">
+            <label for="timeEstimate">Time Estimate:</label>
+            <input type="number" ng-model="form.timeEstimate" min="0" max="448" class="form-control" id="timeEstimate" placeholder="Enter Time Estimate" required>
+        </div>
+
+        <div class="form-group">
+            <label for="priority">Priority:</label>
+            <input type="number" ng-model="form.priorityLevel" class="form-control" id="priority" min="1" max="5" placeholder="Enter Priority" required>
+        </div>
+
+        <input type="submit" value="Submit" class="btn btn-default" />
+        <input type="button" value="Cancel" ng-hide="controller.hideFormCancel" class="btn btn-default" ng-click="controller.toggle()">   <!--Later going to want this to clear the fields-->
+
+
+    </form>
+
+</div>
+
+
+
+
+<br /><br />
+
+
+
+<div class="container">
+    <div class="table-responsive">
+        <!--Table input from form-->
+        <table class="table table-bordered" print-section>
+            <tr class="myForm">
+                <th class="sortingHeader" id="sortingHeader" ng-click="type = 'categoryName'">Category</th>
+                <th class="sortingHeader" id="sortingHeader" ng-click="type = 'description'">Task Name</th>
+                <th class="sortingHeader" id="sortingHeader" ng-click="type = 'startDate'">Start Date</th>
+                <th class="sortingHeader" id="sortingHeader" ng-click="type = 'dueDate'">End Date</th>
+                <th class="sortingHeader" id="sortingHeader" ng-click="type = 'timeEstimate'">Time Estimate</th>
+                <th class="sortingHeader" id="sortingHeader" ng-click="type = 'priorityLevel'">Priority Level</th>
+            </tr>
+            <tr class="myForm" ng-repeat="data in controller.form|orderBy:type|filter:{description:searchTask}">
+                <!--repeat for each object of type myList-->
+                <td class="formTable" id="formTable">{{data.categoryName}}</td>         <!--Category-->
+                <td class="formTable" id="formTable">{{data.description}}</td>         <!--Task Name-->
+                <td class="formTable" id="formTable">{{data.startDate |date}}</td>         <!--Start Date-->
+                <td class="formTable" id="formTable">{{data.dueDate | date}}</td>         <!--End Date-->
+                <td class="formTable" id="formTable">{{data.timeEstimate}}</td>         <!--Time Estimate-->
+                <td class="formTable" id="formTable">{{data.priorityLevel}}</td>         <!--Priority Level-->
+                <td ng-hide="controller.hideCheck"><input name="indexing" type="radio" value="$index" ng-click="controller.checked($index)" /></td>                           <!--Checkbock for the edit,delete, and completed-->
+            </tr>
+        </table>
     </div>
+</div>
 
 
-    <br /><br />  <!--Don't know if this will stay here or go in the time html-->
+
+<div class="container-fluid">
+    <!--text-center in col div is how you center over one row-->
+    <div class="row">
+        <div class="col-xs-12 text-center hidden-xs ">
+            <input type="button" value="Confirm Delete" ng-hide="controller.hideDelete" ng-click="controller.Delete()" class="btn btn-default" />
+            <input type="button" value="Confirm Complete" ng-hide="controller.hideComplete" ng-click="controller.Complete()" class="btn btn-default" />
+            <input type="button" value="Confirm Edit" ng-hide="controller.hideEdit" ng-click="controller.Edit()" class="btn btn-default" />
+            <input type="button" value="Cancel" ng-hide="controller.hideCancel" ng-click="controller.Cancel()" class="btn btn-default" />
+        </div> <!--Delete button to delete a task-->
+    </div>
+    <div class="row">
+        <div class="btn-group-vertical visible-xs ">
+            <input type="button" value="Confirm Delete" ng-hide="controller.hideDelete" ng-click="controller.Delete()" class="btn btn-default" />
+            <input type="button" value="Confirm Complete" ng-hide="controller.hideComplete" ng-click="controller.Complete()" class="btn btn-default" />
+            <input type="button" value="Confirm Edit" ng-hide="controller.hideEdit" ng-click="controller.Edit()" class="btn btn-default" />
+            <input type="button" value="Cancel" ng-hide="controller.hideCancel" ng-click="controller.Cancel()" class="btn btn-default" />
+        </div> <!--Delete button to delete a task-->
+    </div>
+</div>
 
 
-    <h1 id="title">Time Management</h1>
+<br /><br />  <!--Don't know if this will stay here or go in the time html-->
 
-    <br />
 
-    <div class="container-fluid">
-        <div class="table-responsive">
-            <table class="table table-hover">
-                <!--Table for the time managment page-->
-                <tr>
-                    <th  class="sortingHeader">Categories</th>
-                </tr>
-                <tr ng-repeat="data in controller.form|unique: 'categoryName'|orderBy: 'categoryName'">
-                    <td id="categoryOutput">
-                        {{data.categoryName}} :&nbsp {{controller.sumCategories(data.categoryName)}}/448   <!--Noting that this sum literally just inputs all categories to index the times to sum-->
+<h1 id="title">Time Management</h1>
 
-                        <div class="container">
-                            <!--THIS IS A PROGRESS BAR FOR THE WEEKLY TIME-->
-                            <div class="progress">
-                                <div class="progress-bar progress-bar-info" role="progressbar"
-                                     style="width:{{controller.sumCategories(data.categoryName)*(100/448)}}%">
-                                    <!--the 100/168 is literally the 100 percent for the progress bar divided by the hours in a week-->
-                                    <!--Could enter a value for the label of the bar here -->
-                                </div>
+<br />
+
+<div class="container-fluid">
+    <div class="table-responsive">
+        <table class="table table-hover" print-section>
+            <!--Table for the time managment page-->
+            <tr>
+                <th class="sortingHeader">Categories</th>
+            </tr>
+            <tr ng-repeat="data in controller.form|unique: 'categoryName'|orderBy: 'categoryName'">
+                <td id="categoryOutput">
+                    {{data.categoryName}} :&nbsp {{controller.sumCategories(data.categoryName)}}/448   <!--Noting that this sum literally just inputs all categories to index the times to sum-->
+
+                    <div class="container">
+                        <!--THIS IS A PROGRESS BAR FOR THE WEEKLY TIME-->
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-info" role="progressbar"
+                                 style="width:{{controller.sumCategories(data.categoryName)*(100/448)}}%">
+                                <!--the 100/168 is literally the 100 percent for the progress bar divided by the hours in a week-->
+                                <!--Could enter a value for the label of the bar here -->
                             </div>
                         </div>
+                    </div>
 
-                    </td>
+                </td>
 
-                </tr>
-                <tr>
-                    <th class="sortingHeader" >Monthly Tracking</th>
-                </tr>
-                <tr>
-                    <td id="totalOutput">
-                        {{controller.sum()}}/448&nbsp Hours Left
+            </tr>
+            <tr>
+                <th class="sortingHeader">Monthly Tracking</th>
+            </tr>
+            <tr>
+                <td id="totalOutput">
+                    {{controller.sum()}}/448&nbsp Hours Left
 
-                        <div class="container">
-                            <!--THIS IS A PROGRESS BAR FOR THE WEEKLY TIME-->
-                            <div class="progress">
-                                <div class="progress-bar progress-bar-success" role="progressbar"
-                                     style="width:{{(controller.totalTime)*(100/448)}}%">
-                                    <!--the 100/168 is literally the 100 percent for the progress bar divided by the hours in a week-->
-                                    <!--Could enter a value for the label of the bar here -->
-                                </div>
+                    <div class="container">
+                        <!--THIS IS A PROGRESS BAR FOR THE WEEKLY TIME-->
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-success" role="progressbar"
+                                 style="width:{{(controller.totalTime)*(100/448)}}%">
+                                <!--the 100/168 is literally the 100 percent for the progress bar divided by the hours in a week-->
+                                <!--Could enter a value for the label of the bar here -->
                             </div>
                         </div>
-                    </td>
-                </tr>
-            </table>
+                    </div>
+                </td>
+            </tr>
+        </table>
 
-        </div>
     </div>
+</div>
 

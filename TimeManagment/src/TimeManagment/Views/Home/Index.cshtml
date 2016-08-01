@@ -18,53 +18,59 @@
     <script src="~/ngapp/controllers/controllers.js"></script>
     <script src="~/ngapp/services/services.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-filter/0.5.8/angular-filter.min.js"></script>   <!--Added this for angular.filter-->
-
-
     <!-- Security -->
     <script src="~/ngapp/controllers/accountcontroller.js"></script>
     <script src="~/ngapp/services/accountservice.js"></script>
+
+    <script src="~/lib/angularPrint/angularPrint.js"></script>
+    <link href="~/lib/angularPrint/angularPrint.css" rel="stylesheet" />
     <base href="/" />
 </head>
 <body ng-controller="AccountController as account">
- 
 
-                <img class="header" src="~/images/On-Task-Header-dodger-125.jpg" />
-      
 
-        <nav class="navbar navbar-inverse">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" ui-sref="home">OnTask</a>
-                </div>
+    <img class="header" src="~/images/On-Task-Header-dodger-125.jpg" />
+
+
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" ng-init="isCollapsed = true" ng-click="isCollapsed = !isCollapsed">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" ui-sref="home">OnTask</a>
+            </div>
+            <div id="myNavbar" class="navbar-collapse"  ng-class="{collapse: isCollapsed}">
                 <ul class="nav navbar-nav">
-                    <li ><a ui-sref="home">Home</a></li>
+                    <li><a ui-sref="home">Home</a></li>
                     <li><a ui-sref="about">About</a></li>
                     <li><a ui-sref="toDoList">To-Do-List</a></li>
                     <li><a ui-sref="contact">Contact Us</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a ui-sref="login" ng-show="!account.isLoggedIn()"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-                    <li><a href="#" ng-click="account.logout()" ng-show="account.isLoggedIn()">Logout</a>
-                    <div ng-show="account.isLoggedIn()">
-                    {{account.getUserName()}}
-                    </div></li>
+                    <li>
+                        <a href="#" ng-click="account.logout()" ng-show="account.isLoggedIn()">Logout</a>
+                        <div ng-show="account.isLoggedIn()">
+                            {{account.getUserName()}}
+                        </div>
+                    </li>
                 </ul>
             </div>
-        </nav>
 
-        <!--<a ui-sref="secret">Secret</a>  only one left out for now on the nav bar-->
+        </div>
+    </nav>
 
-     
-
-        <ui-view></ui-view>
+    <!--<a ui-sref="secret">Secret</a>  only one left out for now on the nav bar-->
 
 
-  
+
+    <ui-view></ui-view>
+
+
+
 
 </body>
 </html>

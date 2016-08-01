@@ -1,6 +1,6 @@
 namespace TimeManagment {
 
-    angular.module('TimeManagment', ['ui.router', 'ngResource', 'ui.bootstrap', 'angular.filter']).config((  //added angular.filter 
+    angular.module('TimeManagment', ['ui.router', 'ngResource', 'ui.bootstrap', 'angular.filter', 'AngularPrint']).config((  //added angular.filter 
         $stateProvider: ng.ui.IStateProvider,
         $urlRouterProvider: ng.ui.IUrlRouterProvider,
         $locationProvider: ng.ILocationProvider
